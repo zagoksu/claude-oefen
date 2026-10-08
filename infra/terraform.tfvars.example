@@ -1,0 +1,10 @@
+# Copy to terraform.tfvars and adjust if you ever want to try `terraform plan`
+# against a real subscription. This project never runs `terraform apply`.
+
+name_prefix = "dplat01"
+location    = "westeurope"
+
+tags = {
+  project = "claude-oefen"
+  env     = "practice"
+}
