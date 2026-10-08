@@ -43,13 +43,17 @@ terraform validate
 
 # Python
 pip install -r requirements.txt
-pytest
+python -m pytest
 python -m src.transform input.csv output.parquet
 ```
 
-Note: the system Python on this machine is 3.9; pytest/pandas install fine
-under it but `pytest` may not land on PATH — use `python3 -m pytest` if the
-bare `pytest` command isn't found.
+Always run tests as `python -m pytest`, not bare `pytest` — the test suite
+imports `src` as a package, and a bare `pytest` invocation doesn't add the
+repo root to `sys.path` the way `python -m` does, so `pytest` alone fails
+with `ModuleNotFoundError: No module named 'src'` (this bit CI once; see
+`.github/workflows/ci.yml`). The system Python on this machine is 3.9, which
+installs pytest/pandas fine but doesn't reliably put the `pytest` entry point
+on PATH — another reason to prefer `python3 -m pytest` locally.
 
 ## Conventions
 

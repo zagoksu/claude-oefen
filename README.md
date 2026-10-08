@@ -48,7 +48,7 @@ python -m src.transform input.csv output.parquet
 
 ```bash
 pip install -r requirements.txt
-pytest
+python -m pytest
 ```
 
 ## CI
