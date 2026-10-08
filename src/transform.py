@@ -9,9 +9,11 @@ import pandas as pd
 
 
 def clean(df: pd.DataFrame) -> pd.DataFrame:
-    """Normalize column names, drop empty rows, and remove exact duplicates."""
+    """Normalize column names, strip string values, drop empty rows, and remove exact duplicates."""
     df = df.copy()
     df.columns = [str(c).strip().lower().replace(" ", "_") for c in df.columns]
+    for col in df.select_dtypes(include="object").columns:
+        df[col] = df[col].str.strip()
     df = df.dropna(how="all")
     df = df.drop_duplicates()
     df = df.reset_index(drop=True)

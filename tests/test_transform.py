@@ -11,6 +11,12 @@ def test_clean_normalizes_column_names():
     assert list(result.columns) == ["first_name", "last_name"]
 
 
+def test_clean_strips_whitespace_from_string_values():
+    df = pd.DataFrame({"name": ["  Alice ", "Bob  "], "age": [30, 25]})
+    result = clean(df)
+    assert result["name"].tolist() == ["Alice", "Bob"]
+
+
 def test_clean_drops_duplicates_and_empty_rows():
     df = pd.DataFrame(
         {
